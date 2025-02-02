@@ -3,11 +3,11 @@ import { test, expect } from "@playwright/test";
 test.describe("Bing Search - Smoke Tests", () => {
 	test.beforeEach(async ({ page }) => {
 		// Navigate to Bing homepage
-		await page.goto("https://www.bing.com");
+		await page.goto("https://www.bing.com", { waitUntil: "domcontentloaded" });
 
 		// Handle the cookie banner if it appears
-		await page.locator("#bnp_btn_accept").waitFor({ state: "visible" });
 		const cookieBanner = page.locator("#bnp_btn_accept");
+		await cookieBanner.waitFor({ state: "visible", timeout: 2000 });
 		if (await cookieBanner.isVisible()) {
 			await cookieBanner.click();
 		}
