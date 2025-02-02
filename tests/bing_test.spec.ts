@@ -3,11 +3,11 @@ import { test, expect } from "@playwright/test";
 test.describe("Bing Search - Smoke Tests", () => {
 	test.beforeEach(async ({ page }) => {
 		// Navigate to Bing homepage
-		await page.goto("https://www.bing.com", { waitUntil: "domcontentloaded" });
+		await page.goto("https://www.bing.com", { waitUntil: "load" });
 
 		// Handle the cookie banner if it appears
 		const cookieBanner = page.locator("#bnp_btn_accept");
-		await cookieBanner.waitFor({ state: "visible", timeout: 2000 });
+		await cookieBanner.waitFor({ state: "visible", timeout: 10000 });
 		if (await cookieBanner.isVisible()) {
 			await cookieBanner.click();
 		}
@@ -24,7 +24,7 @@ test.describe("Bing Search - Smoke Tests", () => {
 		// Select the "Videos" category using a more specific locator
 		await page
 			.locator("#b-scopeListItem-video")
-			.waitFor({ state: "visible", timeout: 1000 });
+			.waitFor({ state: "visible", timeout: 3000 });
 		await page.locator("#b-scopeListItem-video").click();
 
 		// Wait for video results to load
@@ -43,7 +43,7 @@ test.describe("Bing Search - Smoke Tests", () => {
 		// Select the "News" category
 		await page
 			.locator("#b-scopeListItem-news")
-			.waitFor({ state: "visible", timeout: 1000 });
+			.waitFor({ state: "visible", timeout: 3000 });
 		await page.locator("#b-scopeListItem-news").click();
 
 		// Verify fiest news results are displayed
@@ -59,7 +59,7 @@ test.describe("Bing Search - Smoke Tests", () => {
 		// Select the "Images" category
 		await page
 			.locator("#b-scopeListItem-images")
-			.waitFor({ state: "visible", timeout: 1000 });
+			.waitFor({ state: "visible", timeout: 3000 });
 		await page.locator("#b-scopeListItem-images").click();
 
 		// Verify first images result are displayed
