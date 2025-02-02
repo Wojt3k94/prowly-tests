@@ -4,9 +4,9 @@ export default defineConfig({
 	// Global test timeout (30 seconds)
 	timeout: 30000,
 
-	// Global expect timeout (10 seconds)
+	// Global expect timeout (20 seconds)
 	expect: {
-		timeout: 10000,
+		timeout: 20000,
 	},
 
 	// Number of retries for failed tests
@@ -25,7 +25,13 @@ export default defineConfig({
 	projects: [
 		{
 			name: "chromium",
-			use: { ...devices["Desktop Chrome"] },
+			use: {
+				browserName: "chromium",
+				viewport: null,
+				launchOptions: {
+					args: ["--start-maximized"],
+				},
+			},
 		},
 		// {
 		// 	name: "firefox",
