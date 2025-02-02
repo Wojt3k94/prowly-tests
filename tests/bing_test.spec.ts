@@ -6,10 +6,14 @@ test.describe("Bing Search - Smoke Tests", () => {
 		await page.goto("https://www.bing.com", { waitUntil: "load" });
 
 		// Handle the cookie banner if it appears
-		const cookieBanner = page.locator("#bnp_btn_accept");
-		await cookieBanner.waitFor({ state: "visible", timeout: 10000 });
-		if (await cookieBanner.isVisible()) {
-			await cookieBanner.click();
+		try {
+			const cookieBanner = page.locator("#bnp_btn_accept");
+			await cookieBanner.waitFor({ state: "visible", timeout: 10000 });
+			if (await cookieBanner.isVisible()) {
+				await cookieBanner.click();
+			}
+		} catch (error) {
+			console.log("Cookie banner not found");
 		}
 
 		// Wait for the search bar to be visible
